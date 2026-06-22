@@ -1,0 +1,928 @@
+{% raw %}<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noor Al-Aqsa for Maintenance | Kuwait</title>
+  <meta name="description" content="Professional AC, refrigerator and washing machine repair & installation in Kuwait. 24/7 service." />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
+  <style>
+    /* ─── reset / base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; }
+    [v-cloak]  { display: none; }
+    html       { scroll-behavior: smooth; }
+    [dir="ltr"] { font-family: 'Poppins', sans-serif; }
+    [dir="rtl"] { font-family: 'Cairo',   sans-serif; }
+
+    body { background: #0a0a0f; color: #e2e8f0; }
+
+    /* ─── section backgrounds ─── */
+    .sec-a { background: #0a0a0f; }
+    .sec-b { background: #0d0d18; }
+
+    /* ─── HERO ─── */
+    .hero-bg {
+      background: linear-gradient(160deg, #020208 0%, #060a1e 50%, #0c1540 100%);
+    }
+    .hero-grid {
+      background-image: url("data:image/svg+xml,%3Csvg width='44' height='44' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='44' height='44' fill='none' stroke='%23ffffff' stroke-width='0.5' opacity='0.06'/%3E%3C/svg%3E");
+    }
+
+    /* ─── NAVBAR ─── */
+    .nav-scrolled {
+      background: rgba(8, 8, 14, 0.97) !important;
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* ─── CARDS ─── */
+    .dark-card {
+      background: #13131f;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform .3s cubic-bezier(.25,.8,.25,1), box-shadow .3s, border-color .3s;
+    }
+    .dark-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(249,115,22,0.35);
+      box-shadow: 0 0 30px rgba(249,115,22,.07), 0 20px 48px rgba(0,0,0,.5);
+    }
+
+    /* ─── SERVICE ICON ─── */
+    .svc-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(96,165,250,.1);
+      border: 1px solid rgba(96,165,250,.2);
+      transition: background .3s, border-color .3s, transform .3s;
+    }
+    .svc-card:hover .svc-icon {
+      background: rgba(249,115,22,.15);
+      border-color: rgba(249,115,22,.35);
+      transform: scale(1.1) rotate(-5deg);
+    }
+    .svc-card:hover .svc-icon i { color: #f97316 !important; }
+
+    /* ─── GRADIENT TEXT ─── */
+    .grad-text {
+      background: linear-gradient(135deg, #f97316, #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ─── ORANGE DIVIDER ─── */
+    .o-divider {
+      width: 56px; height: 3px; background: #f97316;
+      border-radius: 999px; margin: 20px auto 0;
+      box-shadow: 0 0 14px rgba(249,115,22,.5);
+    }
+
+    /* ─── FLOAT ─── */
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-12px); }
+    }
+    .fl    { animation: float 3.5s ease-in-out infinite; }
+    .fl-d  { animation: float 3.5s ease-in-out .8s infinite; }
+    .fl-dd { animation: float 3.5s ease-in-out 1.6s infinite; }
+
+    /* ─── NAV UNDERLINE ─── */
+    .nav-lnk { position: relative; }
+    .nav-lnk::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 2px; background: #f97316;
+      transform: scaleX(0); transition: transform .25s ease;
+    }
+    .nav-lnk:hover::after, .nav-lnk.active::after { transform: scaleX(1); }
+
+    /* ─── STEP CONNECTOR ─── */
+    .step-con {
+      position: absolute; top: 32px;
+      left: 50%; width: 100%; height: 1px;
+      background: linear-gradient(90deg, rgba(249,115,22,.4), rgba(96,165,250,.4));
+    }
+    [dir="rtl"] .step-con { left: auto; right: 50%; }
+
+    /* ─── DARK FORM INPUTS ─── */
+    .d-input {
+      width: 100%; padding: 12px 16px; border-radius: 12px;
+      background: #08080e;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #f1f5f9;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .d-input::placeholder { color: #374151; }
+    .d-input:focus {
+      outline: none;
+      border-color: #f97316;
+      box-shadow: 0 0 0 3px rgba(249,115,22,.12);
+    }
+
+    /* ─── FLOATING BUTTONS ─── */
+    .wa-float       { position: fixed; bottom: 84px; right: 20px; z-index: 999; animation: float 3.5s ease-in-out infinite; }
+    .scroll-top-btn { position: fixed; bottom: 24px; right: 20px; z-index: 999; }
+    [dir="rtl"] .wa-float       { right: auto; left: 20px; }
+    [dir="rtl"] .scroll-top-btn { right: auto; left: 20px; }
+
+    /* ─── VUE TRANSITIONS ─── */
+    .slide-down-enter-active, .slide-down-leave-active { transition: all .3s ease; }
+    .slide-down-enter-from,   .slide-down-leave-to     { opacity: 0; transform: translateY(-10px); }
+    .fade-enter-active, .fade-leave-active { transition: opacity .3s; }
+    .fade-enter-from,   .fade-leave-to     { opacity: 0; }
+
+    /* ─── MISC ─── */
+    select option { background: #13131f; color: #f1f5f9; }
+  </style>
+</head>
+
+<body>
+<div id="app" v-cloak>
+
+  <!-- ══════════════════════════ NAVBAR ══════════════════════════ -->
+  <nav :class="['fixed inset-x-0 top-0 z-50 transition-all duration-300 py-3',
+                 scrolled ? 'nav-scrolled' : 'bg-transparent']">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+
+      <!-- Logo -->
+      <a href="#home" class="flex items-center gap-3 flex-shrink-0">
+        <div class="w-11 h-11 rounded-xl flex items-center justify-center"
+             style="background: linear-gradient(135deg,#ea580c,#f97316);">
+          <i class="fas fa-snowflake text-white text-lg"></i>
+        </div>
+        <div>
+          <div class="font-extrabold text-[15px] leading-tight text-white">
+            {{ isAr ? 'نور الأقصى للصيانة' : 'Noor Al-Aqsa' }}
+          </div>
+          <div class="text-[11px]" style="color:#f97316;">
+            {{ isAr ? 'NOOR AL-AQSA' : 'نور الأقصى' }}
+          </div>
+        </div>
+      </a>
+
+      <!-- Desktop links -->
+      <div class="hidden md:flex items-center gap-7">
+        <a v-for="l in navLinks" :key="l.id" :href="'#'+l.id"
+           :class="['nav-lnk text-sm font-medium pb-1 transition-colors',
+                    activeSection===l.id ? 'active text-orange-400' : 'text-slate-300 hover:text-white']">
+          {{ l.label }}
+        </a>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex items-center gap-2">
+        <button @click="toggleLang"
+                class="text-xs font-bold px-3 py-1.5 rounded-full border border-white/20 text-slate-300 hover:border-orange-500/50 hover:text-orange-400 transition-all select-none">
+          {{ isAr ? 'English' : 'عربي' }}
+        </button>
+        <a href="tel:+96569691549"
+           class="hidden sm:inline-flex items-center gap-2 text-white text-sm font-bold px-5 py-2.5 rounded-full transition-all hover:shadow-lg hover:shadow-orange-500/25"
+           style="background:linear-gradient(135deg,#ea580c,#f97316);">
+          <i class="fas fa-phone-alt text-xs"></i>{{ t('call_now') }}
+        </a>
+        <button @click="menuOpen=!menuOpen" class="md:hidden p-2 rounded-lg text-slate-300">
+          <i :class="['fas text-lg', menuOpen ? 'fa-times' : 'fa-bars']"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <transition name="slide-down">
+      <div v-if="menuOpen" style="background:#0f0f1a;border-top:1px solid rgba(255,255,255,.07);">
+        <div class="px-4 py-3 space-y-1">
+          <a v-for="l in navLinks" :key="l.id" :href="'#'+l.id" @click="menuOpen=false"
+             class="flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors"
+             style="color:#94a3b8;" onmouseover="this.style.background='rgba(249,115,22,.08)';this.style.color='#f97316';" onmouseout="this.style.background='transparent';this.style.color='#94a3b8';">
+            <i :class="['fas w-4 text-center text-sm text-orange-500', l.icon]"></i>{{ l.label }}
+          </a>
+          <a href="tel:+96569691549"
+             class="flex items-center gap-2 mt-2 text-white px-4 py-3 rounded-xl font-bold"
+             style="background:linear-gradient(135deg,#ea580c,#f97316);">
+            <i class="fas fa-phone-alt"></i>+965 6969 1549
+          </a>
+        </div>
+      </div>
+    </transition>
+  </nav>
+
+
+  <!-- ══════════════════════════ HERO ══════════════════════════ -->
+  <section id="home" class="hero-bg hero-grid min-h-screen flex items-center relative overflow-hidden">
+
+    <!-- Glows -->
+    <div class="pointer-events-none absolute inset-0">
+      <div class="absolute top-1/4 left-1/3 w-[500px] h-[500px] rounded-full"
+           style="background:radial-gradient(circle,rgba(249,115,22,.12),transparent 65%);"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full"
+           style="background:radial-gradient(circle,rgba(59,130,246,.12),transparent 65%);"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-28 pb-16 relative z-10">
+      <div class="grid md:grid-cols-2 gap-14 items-center">
+
+        <!-- Copy -->
+        <div class="space-y-7">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm"
+               style="background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.25);color:#fdba74;">
+            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse flex-shrink-0"></span>
+            {{ t('hero_badge') }}
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-[3.5rem] font-black leading-[1.1] text-white">
+            {{ t('hero_h1') }}<br>
+            <span class="grad-text">{{ t('hero_h1_2') }}</span><br>
+            <span style="color:#cbd5e1;">{{ t('hero_h1_3') }}</span>
+          </h1>
+
+          <p class="text-[1.05rem] leading-relaxed max-w-md" style="color:#64748b;">
+            {{ t('hero_sub') }}
+          </p>
+
+          <div class="flex flex-wrap gap-3">
+            <a href="#contact"
+               class="inline-flex items-center gap-2 text-white font-bold px-7 py-3.5 rounded-full transition-all hover:scale-105"
+               style="background:linear-gradient(135deg,#ea580c,#f97316);box-shadow:0 0 24px rgba(249,115,22,.35);">
+              <i class="fas fa-tools"></i>{{ t('hero_cta1') }}
+            </a>
+            <a href="https://wa.me/96569691549" target="_blank"
+               class="inline-flex items-center gap-2 text-white font-bold px-7 py-3.5 rounded-full transition-all hover:scale-105"
+               style="background:rgba(22,163,74,.9);box-shadow:0 0 24px rgba(22,163,74,.25);">
+              <i class="fab fa-whatsapp text-xl"></i>{{ t('hero_cta2') }}
+            </a>
+          </div>
+
+          <!-- Stats -->
+          <div class="flex flex-wrap gap-10 pt-4" style="border-top:1px solid rgba(255,255,255,.07);">
+            <div v-for="s in heroStats" :key="s.vk" class="text-center">
+              <div class="text-3xl font-black" style="color:#f97316;">{{ t(s.vk) }}</div>
+              <div class="text-xs mt-0.5" style="color:#475569;">{{ t(s.lk) }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Orbs -->
+        <div class="hidden md:flex justify-center items-center">
+          <div class="relative w-60 h-60">
+            <!-- Centre -->
+            <div class="absolute inset-0 rounded-full flex items-center justify-center"
+                 style="background:rgba(249,115,22,.07);border:1px solid rgba(249,115,22,.2);backdrop-filter:blur(8px);">
+              <i class="fas fa-shield-halved text-6xl" style="color:#f97316;"></i>
+            </div>
+            <!-- AC -->
+            <div class="absolute -top-16 -left-16 w-28 h-28 rounded-2xl flex flex-col items-center justify-center gap-1 text-white fl"
+                 style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(8px);">
+              <i class="fas fa-wind text-3xl" style="color:#7dd3fc;"></i>
+              <span class="text-xs font-bold" style="color:#94a3b8;">{{ isAr ? 'مكيفات' : 'AC' }}</span>
+            </div>
+            <!-- Fridge -->
+            <div class="absolute -top-16 -right-16 w-28 h-28 rounded-2xl flex flex-col items-center justify-center gap-1 text-white fl-d"
+                 style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(8px);">
+              <i class="fas fa-snowflake text-3xl" style="color:#a5f3fc;"></i>
+              <span class="text-xs font-bold" style="color:#94a3b8;">{{ isAr ? 'ثلاجات' : 'Fridge' }}</span>
+            </div>
+            <!-- Washer -->
+            <div class="absolute -bottom-16 left-1/2 -translate-x-1/2 w-28 h-28 rounded-2xl flex flex-col items-center justify-center gap-1 text-white fl-dd"
+                 style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(8px);">
+              <i class="fas fa-rotate text-3xl" style="color:#86efac;"></i>
+              <span class="text-xs font-bold" style="color:#94a3b8;">{{ isAr ? 'غسالات' : 'Washer' }}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce" style="color:rgba(255,255,255,.2);">
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════ SERVICES ══════════════════════════ -->
+  <section id="services" class="py-24 sec-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-14">
+        <span class="text-xs font-bold uppercase tracking-[.2em]" style="color:#f97316;">
+          {{ isAr ? 'ما نقدمه' : 'What We Do' }}
+        </span>
+        <h2 class="text-4xl font-extrabold text-white mt-2 mb-3">{{ t('svc_title') }}</h2>
+        <p class="max-w-xl mx-auto" style="color:#475569;">{{ t('svc_sub') }}</p>
+        <div class="o-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-7">
+        <div v-for="svc in currentSvc" :key="svc.id"
+             class="svc-card dark-card rounded-2xl p-8 flex flex-col">
+          <div class="svc-icon mb-6">
+            <i :class="['fas text-3xl', svc.icon]" style="color:#60a5fa;"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">{{ svc.name }}</h3>
+          <p class="text-sm mb-6 leading-relaxed" style="color:#475569;">{{ svc.desc }}</p>
+          <ul class="space-y-2.5 mb-8 flex-1">
+            <li v-for="item in svc.items" :key="item" class="flex items-start gap-3 text-sm" style="color:#94a3b8;">
+              <span class="w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5"
+                    style="background:rgba(249,115,22,.12);border:1px solid rgba(249,115,22,.2);">
+                <i class="fas fa-check text-[9px]" style="color:#f97316;"></i>
+              </span>
+              {{ item }}
+            </li>
+          </ul>
+          <a href="#contact"
+             class="flex items-center justify-center gap-2 text-white font-semibold py-3 rounded-xl transition-all text-sm"
+             style="background:linear-gradient(135deg,#ea580c,#f97316);"
+             onmouseover="this.style.boxShadow='0 0 20px rgba(249,115,22,.4)'"
+             onmouseout="this.style.boxShadow='none'">
+            <i class="fas fa-calendar-check"></i>{{ t('svc_book') }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════ STATS BANNER ══════════════════════════ -->
+  <section style="background:linear-gradient(135deg,#0f0800 0%,#160b00 50%,#0a0a0f 100%);border-top:1px solid rgba(249,115,22,.12);border-bottom:1px solid rgba(249,115,22,.12);"
+           class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div v-for="s in heroStats" :key="s.vk">
+          <div class="text-4xl sm:text-5xl font-black mb-1" style="color:#f97316;text-shadow:0 0 20px rgba(249,115,22,.4);">{{ t(s.vk) }}</div>
+          <div class="text-sm font-medium" style="color:#64748b;">{{ t(s.lk) }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════ WHY US ══════════════════════════ -->
+  <section id="about" class="py-24 sec-a">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-14">
+        <span class="text-xs font-bold uppercase tracking-[.2em]" style="color:#f97316;">
+          {{ isAr ? 'مميزاتنا' : 'Our Promise' }}
+        </span>
+        <h2 class="text-4xl font-extrabold text-white mt-2 mb-3">{{ t('why_title') }}</h2>
+        <p class="max-w-xl mx-auto" style="color:#475569;">{{ t('why_sub') }}</p>
+        <div class="o-divider"></div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div v-for="f in currentFeat" :key="f.title"
+             class="dark-card rounded-2xl p-7 text-center group"
+             style="transition:transform .3s,box-shadow .3s,border-color .3s;">
+          <div class="w-16 h-16 rounded-2xl mx-auto mb-5 flex items-center justify-center transition-transform group-hover:scale-110"
+               :style="{ background: f.bg, border: f.border }">
+            <i :class="['fas text-2xl', f.icon]" :style="{ color: f.color }"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">{{ f.title }}</h3>
+          <p class="text-sm leading-relaxed" style="color:#475569;">{{ f.desc }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════ HOW IT WORKS ══════════════════════════ -->
+  <section class="py-24 sec-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-14">
+        <span class="text-xs font-bold uppercase tracking-[.2em]" style="color:#f97316;">
+          {{ isAr ? 'طريقة العمل' : 'Simple Process' }}
+        </span>
+        <h2 class="text-4xl font-extrabold text-white mt-2 mb-3">{{ t('how_title') }}</h2>
+        <p style="color:#475569;">{{ t('how_sub') }}</p>
+        <div class="o-divider"></div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-8">
+        <div v-for="(step, i) in currentSteps" :key="step.title" class="text-center relative">
+          <div v-if="i < currentSteps.length - 1" class="step-con hidden md:block"></div>
+          <div class="relative z-10">
+            <div class="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-xl font-black"
+                 style="background:linear-gradient(135deg,#ea580c,#f97316);box-shadow:0 0 20px rgba(249,115,22,.35);">
+              {{ i + 1 }}
+            </div>
+            <div class="w-12 h-12 rounded-xl mx-auto mb-4 flex items-center justify-center"
+                 style="background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.2);">
+              <i :class="['fas text-xl', step.icon]" style="color:#f97316;"></i>
+            </div>
+            <h3 class="text-base font-bold text-white mb-1">{{ step.title }}</h3>
+            <p class="text-sm leading-relaxed" style="color:#475569;">{{ step.desc }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════ CONTACT ══════════════════════════ -->
+  <section id="contact" class="py-24 sec-a">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-14">
+        <span class="text-xs font-bold uppercase tracking-[.2em]" style="color:#f97316;">
+          {{ isAr ? 'تواصل معنا' : 'Contact' }}
+        </span>
+        <h2 class="text-4xl font-extrabold text-white mt-2 mb-3">{{ t('contact_title') }}</h2>
+        <p style="color:#475569;">{{ t('contact_sub') }}</p>
+        <div class="o-divider"></div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-14">
+
+        <!-- Form -->
+        <div class="rounded-2xl p-8" style="background:#0d0d18;border:1px solid rgba(255,255,255,.06);">
+          <h3 class="text-2xl font-bold text-white mb-6">{{ t('form_heading') }}</h3>
+          <form @submit.prevent="submitForm" class="space-y-5">
+
+            <div>
+              <label class="block text-sm font-semibold mb-1.5" style="color:#94a3b8;">
+                {{ t('form_name') }} <span style="color:#f87171;">*</span>
+              </label>
+              <input v-model="form.name" type="text" required
+                     :placeholder="isAr ? 'أدخل اسمك الكامل' : 'Your full name'"
+                     class="d-input" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold mb-1.5" style="color:#94a3b8;">
+                {{ t('form_phone') }} <span style="color:#f87171;">*</span>
+              </label>
+              <input v-model="form.phone" type="tel" required placeholder="+965 XXXX XXXX"
+                     class="d-input" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold mb-1.5" style="color:#94a3b8;">{{ t('form_service') }}</label>
+              <select v-model="form.service" class="d-input">
+                <option value="">{{ isAr ? 'اختر الخدمة...' : 'Select a service...' }}</option>
+                <optgroup :label="isAr ? 'المكيفات' : 'Air Conditioning'">
+                  <option value="central-ac">{{ isAr ? 'صيانة وتركيب المكيفات المركزية' : 'Central AC Maintenance & Installation' }}</option>
+                  <option value="split-ac">{{ isAr ? 'صيانة وتركيب مكيفات السبليت' : 'Split AC Maintenance & Installation' }}</option>
+                  <option value="window-ac">{{ isAr ? 'صيانة مكيفات الشباك' : 'Window AC Maintenance' }}</option>
+                  <option value="ac-gas">{{ isAr ? 'تنظيف المكيفات وتعبئة الغاز' : 'AC Cleaning & Gas Refilling' }}</option>
+                </optgroup>
+                <optgroup :label="isAr ? 'الثلاجات والفريزرات' : 'Refrigerators & Freezers'">
+                  <option value="fridge">{{ isAr ? 'تصليح الثلاجات والفريزرات' : 'Refrigerator / Freezer Repair' }}</option>
+                  <option value="water-cooler">{{ isAr ? 'صيانة برادات الماء' : 'Water Cooler Maintenance' }}</option>
+                </optgroup>
+                <optgroup :label="isAr ? 'الغسالات' : 'Washing Machines'">
+                  <option value="washer-repair">{{ isAr ? 'صيانة الغسالات الأوتوماتيك' : 'Automatic Washer Repair' }}</option>
+                  <option value="washer-install">{{ isAr ? 'تركيب ونقل الأجهزة' : 'Machine Installation & Relocation' }}</option>
+                </optgroup>
+                <option value="contract">{{ isAr ? 'عقود صيانة للمنازل والمحلات' : 'Home & Shop Maintenance Contracts' }}</option>
+                <option value="other">{{ isAr ? 'أخرى' : 'Other' }}</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold mb-1.5" style="color:#94a3b8;">{{ t('form_msg') }}</label>
+              <textarea v-model="form.message" rows="4"
+                        :placeholder="isAr ? 'صف المشكلة أو ما تحتاجه...' : 'Describe the issue or what you need…'"
+                        class="d-input" style="resize:none;"></textarea>
+            </div>
+
+            <button type="submit" :disabled="formLoading"
+                    class="w-full flex items-center justify-center gap-2 text-white font-bold py-4 rounded-xl text-base transition-all"
+                    style="background:linear-gradient(135deg,#ea580c,#f97316);"
+                    onmouseover="if(!this.disabled){this.style.boxShadow='0 0 28px rgba(249,115,22,.45)'}"
+                    onmouseout="this.style.boxShadow='none'">
+              <i v-if="formLoading" class="fas fa-spinner fa-spin"></i>
+              <i v-else class="fas fa-paper-plane"></i>
+              {{ formLoading ? t('form_sending') : t('form_submit') }}
+            </button>
+
+            <transition name="fade">
+              <div v-if="formMsg"
+                   :class="['p-4 rounded-xl text-sm font-medium',
+                             formOk ? 'border' : 'border']"
+                   :style="formOk
+                     ? 'background:rgba(22,163,74,.1);color:#4ade80;border-color:rgba(22,163,74,.25);'
+                     : 'background:rgba(239,68,68,.1);color:#f87171;border-color:rgba(239,68,68,.25);'">
+                <i :class="['fas mr-2', formOk ? 'fa-circle-check' : 'fa-circle-exclamation']"></i>
+                {{ formMsg }}
+              </div>
+            </transition>
+          </form>
+        </div>
+
+        <!-- Info -->
+        <div class="space-y-4">
+          <div>
+            <h3 class="text-2xl font-bold text-white mb-1">{{ t('ci_heading') }}</h3>
+            <p class="text-sm mb-5" style="color:#475569;">{{ t('ci_sub') }}</p>
+          </div>
+
+          <div v-for="c in contactInfo" :key="c.key"
+               class="flex items-start gap-4 p-5 rounded-xl transition-all group cursor-default"
+               style="background:#0d0d18;border:1px solid rgba(255,255,255,.06);"
+               onmouseover="this.style.borderColor='rgba(249,115,22,.25)';this.style.background='rgba(249,115,22,.04)';"
+               onmouseout="this.style.borderColor='rgba(255,255,255,.06)';this.style.background='#0d0d18';">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform group-hover:scale-110"
+                 :style="{ background: c.bg, border: c.border }">
+              <i :class="[c.iconClass, 'text-lg']" :style="{ color: c.color }"></i>
+            </div>
+            <div>
+              <div class="text-[10px] font-bold uppercase tracking-widest mb-0.5" style="color:#374151;">{{ t(c.lk) }}</div>
+              <a :href="c.href" :target="c.target||'_self'"
+                 class="font-semibold text-sm transition-colors" style="color:#e2e8f0;"
+                 onmouseover="this.style.color='#f97316'" onmouseout="this.style.color='#e2e8f0'">{{ c.value }}</a>
+              <div v-if="c.sk" class="text-xs mt-0.5" style="color:#374151;">{{ t(c.sk) }}</div>
+            </div>
+          </div>
+
+          <!-- Address -->
+          <div class="p-5 rounded-xl" style="background:#0d0d18;border:1px solid rgba(255,255,255,.06);">
+            <div class="flex items-start gap-3">
+              <i class="fas fa-map-location-dot text-2xl flex-shrink-0 mt-0.5" style="color:#f97316;"></i>
+              <div>
+                <div class="font-bold text-white mb-1 text-sm">{{ isAr ? 'الموقع' : 'Location' }}</div>
+                <p class="text-sm leading-relaxed" style="color:#64748b;">
+                  {{ isAr ? 'الكويت — ميدان حولي، شارع يثرب، قطعة 9' : 'Kuwait — Hawalli, Yathrib St., Block 9' }}
+                </p>
+                <p class="text-xs mt-1" style="color:#374151;">
+                  {{ isAr ? 'نخدم جميع مناطق الكويت' : 'Serving all areas of Kuwait' }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════ FOOTER ══════════════════════════ -->
+  <footer style="background:#050508;border-top:1px solid rgba(255,255,255,.05);" class="pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10 mb-12">
+
+        <!-- Brand -->
+        <div class="sm:col-span-2 md:col-span-1">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center"
+                 style="background:linear-gradient(135deg,#ea580c,#f97316);">
+              <i class="fas fa-snowflake text-white text-lg"></i>
+            </div>
+            <div>
+              <div class="font-extrabold text-base text-white">{{ isAr ? 'نور الأقصى للصيانة' : 'Noor Al-Aqsa' }}</div>
+              <div class="text-[11px]" style="color:#f97316;">{{ isAr ? 'NOOR AL-AQSA' : 'نور الأقصى' }}</div>
+            </div>
+          </div>
+          <p class="text-sm leading-relaxed mb-2" style="color:#374151;">{{ t('footer_tagline') }}</p>
+          <p class="text-xs mb-5" style="color:#1e293b;">{{ t('footer_mgmt') }}</p>
+          <div class="flex gap-2">
+            <a href="https://wa.me/96569691549" target="_blank"
+               class="w-9 h-9 rounded-lg flex items-center justify-center text-sm text-white transition-all"
+               style="background:rgba(255,255,255,.06);" onmouseover="this.style.background='#16a34a'" onmouseout="this.style.background='rgba(255,255,255,.06)'">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="#"
+               class="w-9 h-9 rounded-lg flex items-center justify-center text-sm text-white transition-all"
+               style="background:rgba(255,255,255,.06);" onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='rgba(255,255,255,.06)'">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#"
+               class="w-9 h-9 rounded-lg flex items-center justify-center text-sm text-white transition-all"
+               style="background:rgba(255,255,255,.06);" onmouseover="this.style.background='#db2777'" onmouseout="this.style.background='rgba(255,255,255,.06)'">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick links -->
+        <div>
+          <h4 class="font-bold text-sm uppercase tracking-widest mb-4" style="color:#374151;">{{ t('footer_links') }}</h4>
+          <ul class="space-y-2.5">
+            <li v-for="l in navLinks" :key="l.id">
+              <a :href="'#'+l.id" class="text-sm flex items-center gap-2 transition-colors"
+                 style="color:#1e293b;" onmouseover="this.style.color='#f97316'" onmouseout="this.style.color='#1e293b'">
+                <i class="fas fa-chevron-right text-[10px]" style="color:#f97316;"></i>{{ l.label }}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Services -->
+        <div>
+          <h4 class="font-bold text-sm uppercase tracking-widest mb-4" style="color:#374151;">{{ t('footer_svc') }}</h4>
+          <ul class="space-y-2.5">
+            <li v-for="s in footerSvc" :key="s">
+              <a href="#services" class="text-sm flex items-center gap-2 transition-colors"
+                 style="color:#1e293b;" onmouseover="this.style.color='#f97316'" onmouseout="this.style.color='#1e293b'">
+                <i class="fas fa-chevron-right text-[10px]" style="color:#f97316;"></i>{{ s }}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="font-bold text-sm uppercase tracking-widest mb-4" style="color:#374151;">{{ t('footer_contact') }}</h4>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-3 text-sm" style="color:#374151;">
+              <i class="fas fa-phone w-4 text-center" style="color:#f97316;"></i>+965 6969 1549
+            </li>
+            <li class="flex items-center gap-3 text-sm" style="color:#374151;">
+              <i class="fas fa-phone w-4 text-center" style="color:#f97316;"></i>+965 6695 7340
+            </li>
+            <li class="flex items-center gap-3 text-sm" style="color:#374151;">
+              <i class="fab fa-whatsapp w-4 text-center" style="color:#4ade80;"></i>+965 6969 1549
+            </li>
+            <li class="flex items-center gap-3 text-sm" style="color:#374151;">
+              <i class="fas fa-envelope w-4 text-center" style="color:#60a5fa;"></i>nooralaqsakuwait@gmail.com
+            </li>
+            <li class="flex items-center gap-3 text-sm" style="color:#374151;">
+              <i class="fas fa-map-marker-alt w-4 text-center" style="color:#f87171;"></i>
+              {{ isAr ? 'حولي، الكويت' : 'Hawalli, Kuwait' }}
+            </li>
+            <li class="flex items-center gap-3 text-sm" style="color:#374151;">
+              <i class="fas fa-clock w-4 text-center" style="color:#f97316;"></i>
+              {{ isAr ? '24/7 — طول الأسبوع' : '24/7 — All Week' }}
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs"
+           style="border-top:1px solid rgba(255,255,255,.04);color:#1e293b;">
+        <span>{{ t('footer_copy') }}</span>
+        <span>{{ isAr ? 'خبرة • احترافية • ثقة تدوم' : 'Experience · Professionalism · Lasting Trust' }}</span>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ══════════ FLOATING BUTTONS ══════════ -->
+  <a href="https://wa.me/96569691549" target="_blank"
+     class="wa-float w-14 h-14 rounded-full flex items-center justify-center text-white text-2xl transition-all hover:scale-110"
+     style="background:#16a34a;box-shadow:0 0 24px rgba(22,163,74,.4);">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <transition name="fade">
+    <button v-if="showTop" @click="goTop"
+            class="scroll-top-btn w-12 h-12 rounded-full flex items-center justify-center text-white transition-all hover:scale-110"
+            style="background:linear-gradient(135deg,#ea580c,#f97316);box-shadow:0 0 16px rgba(249,115,22,.4);">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+  </transition>
+
+</div><!-- /#app -->
+
+
+<!-- ══════════════════════════ VUE 3 ══════════════════════════ -->
+<script>
+const { createApp, ref, computed, reactive, watch, onMounted, onUnmounted } = Vue
+
+/* ── TRANSLATIONS ─────────────────────────────────────────── */
+const T = {
+  en: {
+    call_now:'Call Now',
+    hero_badge:'Available 24/7 · Kuwait',
+    hero_h1:'Repair & Install',
+    hero_h1_2:'All AC Types &',
+    hero_h1_3:'Home Appliances',
+    hero_sub:'Professional maintenance & installation for all types of ACs and home appliances. Experience · Professionalism · Lasting Trust.',
+    hero_cta1:'Get Service Now', hero_cta2:'WhatsApp',
+    hs1v:'10+',  hs1l:'Years Experience',
+    hs2v:'5000+',hs2l:'Happy Clients',
+    hs3v:'24/7', hs3l:'Always Available',
+    hs4v:'98%',  hs4l:'Satisfaction Rate',
+    nav_home:'Home', nav_svc:'Services', nav_about:'About', nav_contact:'Contact',
+    svc_title:'Our Services',
+    svc_sub:'Expert repair & installation for all home appliances — all brands, across Kuwait.',
+    svc_book:'Book This Service',
+    why_title:'Why Choose Noor Al-Aqsa?',
+    why_sub:'Experience · Professionalism · Lasting Trust',
+    how_title:'How It Works',
+    how_sub:'Getting your appliance fixed is quick and hassle-free.',
+    contact_title:'Get In Touch',
+    contact_sub:'Ready to fix your appliance? Contact us now.',
+    form_heading:'Send a Request',
+    form_name:'Full Name', form_phone:'Phone Number',
+    form_service:'Service Type', form_msg:'Problem Description',
+    form_submit:'Send Request', form_sending:'Sending…',
+    form_ok:"Thank you! Your request has been received. We'll contact you shortly.",
+    form_err:'Something went wrong. Please try again.',
+    ci_heading:'Contact Information',
+    ci_sub:'Reach us any way you prefer — we respond fast.',
+    lk_p1:'Phone 1', lk_p2:'Phone 2', lk_wa:'WhatsApp', lk_em:'Email', lk_hr:'Working Hours',
+    sk_p1:'Call us directly', sk_p2:'Second line', sk_wa:'Chat anytime',
+    sk_em:'Email us', sk_hr:'Open 7 days a week',
+    footer_tagline:"Kuwait's trusted appliance maintenance specialists.",
+    footer_mgmt:'Management: Abu Yasir · Abu Muadh',
+    footer_links:'Quick Links', footer_svc:'Services',
+    footer_contact:'Contact',
+    footer_copy:'© 2024 Noor Al-Aqsa for Maintenance. All rights reserved.',
+  },
+  ar: {
+    call_now:'اتصل الآن',
+    hero_badge:'متواجدون 24/7 · الكويت',
+    hero_h1:'صيانة وتركيب',
+    hero_h1_2:'جميع أنواع المكيفات',
+    hero_h1_3:'والأجهزة المنزلية',
+    hero_sub:'خدمات صيانة وتركيب احترافية لجميع أنواع المكيفات والأجهزة المنزلية. خبرة • احترافية • ثقة تدوم.',
+    hero_cta1:'احجز الخدمة الآن', hero_cta2:'واتساب',
+    hs1v:'+10',  hs1l:'سنوات خبرة',
+    hs2v:'+5000',hs2l:'عميل سعيد',
+    hs3v:'24/7', hs3l:'دائماً في الخدمة',
+    hs4v:'%98',  hs4l:'نسبة الرضا',
+    nav_home:'الرئيسية', nav_svc:'خدماتنا', nav_about:'عن الشركة', nav_contact:'تواصل معنا',
+    svc_title:'خدماتنا',
+    svc_sub:'صيانة وتركيب احترافية لجميع الأجهزة المنزلية — جميع الماركات، في أنحاء الكويت.',
+    svc_book:'احجز الخدمة',
+    why_title:'لماذا تختار نور الأقصى؟',
+    why_sub:'خبرة • احترافية • ثقة تدوم',
+    how_title:'كيف نعمل؟',
+    how_sub:'إصلاح جهازك سهل وسريع معنا.',
+    contact_title:'تواصل معنا',
+    contact_sub:'مستعد لإصلاح جهازك؟ تواصل معنا الآن.',
+    form_heading:'أرسل طلبك',
+    form_name:'الاسم الكامل', form_phone:'رقم الهاتف',
+    form_service:'نوع الخدمة', form_msg:'وصف المشكلة',
+    form_submit:'إرسال الطلب', form_sending:'جارٍ الإرسال…',
+    form_ok:'شكراً! تم استلام طلبك وسنتواصل معك قريباً.',
+    form_err:'حدث خطأ. يرجى المحاولة مرة أخرى.',
+    ci_heading:'معلومات التواصل',
+    ci_sub:'تواصل معنا بأي طريقة تفضلها — نرد بسرعة.',
+    lk_p1:'هاتف 1', lk_p2:'هاتف 2', lk_wa:'واتساب', lk_em:'البريد الإلكتروني', lk_hr:'ساعات العمل',
+    sk_p1:'اتصل بنا مباشرة', sk_p2:'خط ثانٍ', sk_wa:'تحدث معنا في أي وقت',
+    sk_em:'راسلنا', sk_hr:'مفتوحون طول الأسبوع',
+    footer_tagline:'المتخصصون في صيانة وتركيب الأجهزة المنزلية في الكويت.',
+    footer_mgmt:'الإدارة: أبو ياسر · أبو معاذ',
+    footer_links:'روابط سريعة', footer_svc:'خدماتنا',
+    footer_contact:'تواصل معنا',
+    footer_copy:'© 2024 نور الأقصى للصيانة. جميع الحقوق محفوظة.',
+  },
+}
+
+/* ── SERVICES ─────────────────────────────────────────────── */
+const SVC = {
+  en:[
+    { id:'ac', name:'Air Conditioning', icon:'fa-wind',
+      desc:'Complete AC solutions — central, split, and window units. All brands serviced.',
+      items:['Central AC Maintenance & Installation','Split AC Maintenance & Installation','Window AC Maintenance','AC Cleaning & Gas Refilling','Quick Inspection & Home Service'] },
+    { id:'fridge', name:'Refrigerators & Freezers', icon:'fa-snowflake',
+      desc:'Expert repair for all refrigerators, freezers, and water coolers of any brand.',
+      items:['Refrigerator Repair','Freezer Repair','Water Cooler Maintenance','Compressor Repair & Gas Refill','All Brands Supported'] },
+    { id:'washer', name:'Washing Machines', icon:'fa-rotate',
+      desc:'Specialist repair and installation for all automatic washing machine brands.',
+      items:['Automatic Washer Repair','Machine Installation & Relocation','Drum & Motor Repair','Electronic Board Repair','Home & Shop Maintenance Contracts'] },
+  ],
+  ar:[
+    { id:'ac', name:'المكيفات', icon:'fa-wind',
+      desc:'حلول متكاملة للمكيفات — مركزية، سبليت، وشباك. جميع الماركات والموديلات.',
+      items:['صيانة وتركيب المكيفات المركزية','صيانة وتركيب مكيفات السبليت','صيانة مكيفات الشباك','تنظيف المكيفات وتعبئة الغاز','فحص سريع وخدمة منزلية'] },
+    { id:'fridge', name:'الثلاجات والفريزرات', icon:'fa-snowflake',
+      desc:'تصليح احترافي لجميع الثلاجات والفريزرات وبرادات الماء من أي ماركة.',
+      items:['تصليح الثلاجات','تصليح الفريزرات','صيانة برادات الماء','إصلاح الكمبروسر وتعبئة الغاز','جميع الماركات'] },
+    { id:'washer', name:'الغسالات', icon:'fa-rotate',
+      desc:'صيانة وتركيب متخصص للغسالات الأوتوماتيك من جميع الماركات.',
+      items:['صيانة الغسالات الأوتوماتيك','تركيب ونقل الأجهزة','إصلاح الحلة والمحرك','إصلاح اللوحات الإلكترونية','عقود صيانة للمنازل والمحلات'] },
+  ],
+}
+
+/* ── FEATURES ─────────────────────────────────────────────── */
+const FEAT = {
+  en:[
+    { title:'Fast Service',           icon:'fa-bolt',          desc:'Quick response, same-day service available for urgent needs.',               bg:'rgba(217,119,6,.12)',   border:'1px solid rgba(217,119,6,.25)',   color:'#fbbf24' },
+    { title:'Reasonable Prices',      icon:'fa-tags',          desc:'Transparent pricing — clear quote before we start, no hidden fees.',         bg:'rgba(22,163,74,.12)',   border:'1px solid rgba(22,163,74,.25)',   color:'#4ade80' },
+    { title:'Specialist Technicians', icon:'fa-user-check',    desc:'Certified professionals with years of hands-on experience.',                  bg:'rgba(59,130,246,.12)',  border:'1px solid rgba(59,130,246,.25)', color:'#60a5fa' },
+    { title:'Home Visits',            icon:'fa-house',         desc:'We come directly to you — anywhere across all Kuwait.',                       bg:'rgba(219,39,119,.12)',  border:'1px solid rgba(219,39,119,.25)', color:'#f472b6' },
+    { title:'Quality Guaranteed',     icon:'fa-shield-halved', desc:'90-day warranty on all repairs. Issue returns? We fix it free of charge.',    bg:'rgba(124,58,237,.12)',  border:'1px solid rgba(124,58,237,.25)', color:'#a78bfa' },
+    { title:'24/7 Availability',      icon:'fa-clock',         desc:'Available around the clock, 7 days a week. Emergency calls welcome.',         bg:'rgba(249,115,22,.12)',  border:'1px solid rgba(249,115,22,.25)', color:'#f97316' },
+  ],
+  ar:[
+    { title:'خدمة سريعة',            icon:'fa-bolt',          desc:'استجابة سريعة وخدمة في نفس اليوم للحالات العاجلة.',                         bg:'rgba(217,119,6,.12)',   border:'1px solid rgba(217,119,6,.25)',   color:'#fbbf24' },
+    { title:'أسعار مناسبة',          icon:'fa-tags',          desc:'أسعار تنافسية وواضحة — عرض سعر قبل البدء، بدون رسوم خفية.',                bg:'rgba(22,163,74,.12)',   border:'1px solid rgba(22,163,74,.25)',   color:'#4ade80' },
+    { title:'فنيون متخصصون',         icon:'fa-user-check',    desc:'فنيون معتمدون ومدربون بخبرة عملية طويلة في جميع أنواع الأجهزة.',            bg:'rgba(59,130,246,.12)',  border:'1px solid rgba(59,130,246,.25)', color:'#60a5fa' },
+    { title:'زيارة منزلية',          icon:'fa-house',         desc:'نأتي إليك مباشرة — في أي مكان بجميع أنحاء الكويت.',                        bg:'rgba(219,39,119,.12)',  border:'1px solid rgba(219,39,119,.25)', color:'#f472b6' },
+    { title:'جودة مضمونة',           icon:'fa-shield-halved', desc:'ضمان 90 يوماً على جميع الإصلاحات. المشكلة تعود؟ نصلحها مجاناً.',           bg:'rgba(124,58,237,.12)',  border:'1px solid rgba(124,58,237,.25)', color:'#a78bfa' },
+    { title:'متواجدون 24/7',         icon:'fa-clock',         desc:'متاحون على مدار الساعة طوال أيام الأسبوع. حالات الطوارئ مرحب بها.',        bg:'rgba(249,115,22,.12)',  border:'1px solid rgba(249,115,22,.25)', color:'#f97316' },
+  ],
+}
+
+/* ── STEPS ─────────────────────────────────────────────────── */
+const STEPS = {
+  en:[
+    { title:'Call or WhatsApp',   icon:'fa-phone-alt',      desc:"Contact us and describe your issue. We'll schedule at your convenience." },
+    { title:'Schedule a Visit',   icon:'fa-calendar-check', desc:'A certified technician arrives at your location at the agreed time.' },
+    { title:'Diagnose & Fix',     icon:'fa-tools',          desc:'Transparent quote, then we fix the problem on the spot.' },
+    { title:'Enjoy Comfort',      icon:'fa-face-smile',     desc:'Appliance working perfectly — backed by our 90-day warranty.' },
+  ],
+  ar:[
+    { title:'اتصل أو واتساب',     icon:'fa-phone-alt',      desc:'تواصل معنا وصف مشكلتك. سنحدد موعد الزيارة في الوقت المناسب لك.' },
+    { title:'حدد موعد الزيارة',   icon:'fa-calendar-check', desc:'يأتيك الفني المعتمد في الموعد المتفق عليه.' },
+    { title:'الفحص والإصلاح',     icon:'fa-tools',          desc:'عرض سعر واضح ثم الإصلاح الفوري في عين المكان.' },
+    { title:'استمتع بالراحة',     icon:'fa-face-smile',     desc:'جهازك يعمل بصورة مثالية — مع ضمان 90 يوماً على الإصلاح.' },
+  ],
+}
+
+/* ── APP ───────────────────────────────────────────────────── */
+createApp({
+  setup() {
+    const lang          = ref('en')
+    const scrolled      = ref(false)
+    const menuOpen      = ref(false)
+    const activeSection = ref('home')
+    const showTop       = ref(false)
+
+    const isAr = computed(() => lang.value === 'ar')
+    const t    = key => T[lang.value][key] ?? T.en[key] ?? key
+
+    const toggleLang = () => {
+      lang.value = lang.value === 'en' ? 'ar' : 'en'
+      const html = document.documentElement
+      html.setAttribute('lang', lang.value)
+      html.setAttribute('dir',  lang.value === 'ar' ? 'rtl' : 'ltr')
+    }
+
+    const navLinks = computed(() => [
+      { id:'home',    label:t('nav_home'),    icon:'fa-house' },
+      { id:'services',label:t('nav_svc'),     icon:'fa-wrench' },
+      { id:'about',   label:t('nav_about'),   icon:'fa-circle-info' },
+      { id:'contact', label:t('nav_contact'), icon:'fa-envelope' },
+    ])
+
+    const heroStats = [
+      { vk:'hs1v', lk:'hs1l' },
+      { vk:'hs2v', lk:'hs2l' },
+      { vk:'hs3v', lk:'hs3l' },
+      { vk:'hs4v', lk:'hs4l' },
+    ]
+
+    const currentSvc   = computed(() => SVC[lang.value])
+    const currentFeat  = computed(() => FEAT[lang.value])
+    const currentSteps = computed(() => STEPS[lang.value])
+
+    const contactInfo = [
+      { key:'p1', lk:'lk_p1', value:'+965 6969 1549', href:'tel:+96569691549',               iconClass:'fas fa-phone-alt', bg:'rgba(59,130,246,.12)',  border:'1px solid rgba(59,130,246,.2)',  color:'#60a5fa', sk:'sk_p1' },
+      { key:'p2', lk:'lk_p2', value:'+965 6695 7340', href:'tel:+96566957340',               iconClass:'fas fa-phone-alt', bg:'rgba(59,130,246,.12)',  border:'1px solid rgba(59,130,246,.2)',  color:'#60a5fa', sk:'sk_p2' },
+      { key:'wa', lk:'lk_wa', value:'+965 6969 1549', href:'https://wa.me/96569691549',       iconClass:'fab fa-whatsapp',  bg:'rgba(22,163,74,.12)',   border:'1px solid rgba(22,163,74,.2)',   color:'#4ade80', sk:'sk_wa', target:'_blank' },
+      { key:'em', lk:'lk_em', value:'nooralaqsakuwait@gmail.com', href:'mailto:nooralaqsakuwait@gmail.com', iconClass:'fas fa-envelope', bg:'rgba(249,115,22,.12)', border:'1px solid rgba(249,115,22,.2)', color:'#f97316', sk:'sk_em' },
+      { key:'hr', lk:'lk_hr', value:'24/7',           href:'#',                              iconClass:'fas fa-clock',     bg:'rgba(124,58,237,.12)', border:'1px solid rgba(124,58,237,.2)', color:'#a78bfa', sk:'sk_hr' },
+    ]
+
+    const footerSvc = computed(() => lang.value === 'ar'
+      ? ['صيانة المكيفات','تركيب المكيفات','تنظيف وتعبئة غاز','تصليح الثلاجات','صيانة الغسالات','عقود الصيانة']
+      : ['AC Maintenance','AC Installation','Cleaning & Gas','Fridge Repair','Washer Repair','Maintenance Contracts'])
+
+    const form        = reactive({ name:'', phone:'', service:'', message:'' })
+    const formLoading = ref(false)
+    const formMsg     = ref('')
+    const formOk      = ref(false)
+
+    const submitForm = async () => {
+      formLoading.value = true; formMsg.value = ''
+      try {
+        const res  = await fetch('/api/contact', {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({...form}),
+        })
+        const data = await res.json()
+        formOk.value  = data.success
+        formMsg.value = data.success ? t('form_ok') : t('form_err')
+        if (data.success) { form.name=''; form.phone=''; form.service=''; form.message='' }
+      } catch {
+        formOk.value = false; formMsg.value = t('form_err')
+      } finally { formLoading.value = false }
+    }
+
+    const onScroll = () => {
+      scrolled.value = window.scrollY > 60
+      showTop.value  = window.scrollY > 400
+      for (const id of ['contact','about','services','home']) {
+        const el = document.getElementById(id)
+        if (el && window.scrollY >= el.offsetTop - 120) { activeSection.value = id; break }
+      }
+    }
+    const goTop = () => window.scrollTo({ top:0, behavior:'smooth' })
+
+    onMounted(()   => window.addEventListener('scroll', onScroll))
+    onUnmounted(() => window.removeEventListener('scroll', onScroll))
+
+    return {
+      lang, isAr, t, toggleLang,
+      scrolled, menuOpen, activeSection, showTop,
+      navLinks, heroStats,
+      currentSvc, currentFeat, currentSteps,
+      contactInfo, footerSvc,
+      form, formLoading, formMsg, formOk, submitForm,
+      goTop,
+    }
+  }
+}).mount('#app')
+</script>
+
+</body>
+</html>{% endraw %}
